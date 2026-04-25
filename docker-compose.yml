@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  caption-app:
+    build: .
+    container_name: image-caption-container
+    ports:
+      - "80:8501"
+    restart: always
+    environment:
+      - PYTHONUNBUFFERED=1
