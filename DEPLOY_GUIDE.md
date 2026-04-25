@@ -56,3 +56,38 @@ Open your browser and navigate to `http://your-ec2-ip`.
 ## Troubleshooting
 - **Memory Issues**: TensorFlow can be memory-intensive. If the container crashes, check if your EC2 instance has enough RAM (at least 4GB recommended).
 - **Logs**: View logs using `sudo docker-compose logs -f`.
+
+---
+
+## Alternative: Manual Deployment (No Docker)
+
+If you have limited disk space or want to avoid Docker, follow these steps to run the app directly on the EC2 host.
+
+### 1. Install Python and Git LFS
+```bash
+sudo apt-get update
+sudo apt-get install -y python3-pip python3-venv git-lfs
+git lfs install
+```
+
+### 2. Clone and Pull Models
+```bash
+git clone https://github.com/Samgoldwin/Image-captioning-model.git
+cd Image-captioning-model
+git lfs pull
+```
+
+### 3. Setup Virtual Environment
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### 4. Run the App
+```bash
+# Run in background using nohup
+nohup streamlit run app.py --server.port 80 --server.address 0.0.0.0 --server.enableCORS=false --server.enableXsrfProtection=false &
+```
+*(Note: Running on port 80 requires sudo or special permissions. Alternatively, use port 8501 and open it in your Security Group).*
