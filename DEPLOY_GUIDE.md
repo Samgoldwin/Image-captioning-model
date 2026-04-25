@@ -19,8 +19,11 @@ ssh -i your-key.pem ubuntu@your-ec2-ip
 # Update packages
 sudo apt-get update
 
-# Install Docker
-sudo apt-get install -y docker.io
+# Install Docker and Git LFS
+sudo apt-get install -y docker.io git-lfs
+
+# Initialize Git LFS
+git lfs install
 
 # Install Docker Compose
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -38,6 +41,8 @@ sudo usermod -aG docker $USER
 ```bash
 git clone https://github.com/Samgoldwin/Image-captioning-model.git
 cd Image-captioning-model
+# Ensure all large model files are downloaded
+git lfs pull
 ```
 
 ### 4. Build and Run with Docker Compose
